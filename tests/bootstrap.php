@@ -45,4 +45,11 @@ spl_autoload_register(
     }
 );
 
+$mockObjectFilePath = __DIR__ . "/patches/mock-object-generator-patched.php";
+
+file_put_contents(
+    __DIR__ . '/../vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator.php',
+    file_get_contents($mockObjectFilePath)
+);
+
 require __DIR__.'/../vendor/autoload.php';
