@@ -45,11 +45,17 @@ spl_autoload_register(
     }
 );
 
-$mockObjectFilePath = __DIR__ . "/patches/mock-object-generator-patched.php";
+$mockGeneratorFilePath = __DIR__ . "/patches/mock-object-generator-patched.php";
+$mockMethodTemplateFilePath = __DIR__ . "/patches/mocked-method-tpl-patched.tpl.dist";
 
 file_put_contents(
     __DIR__ . '/../vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator.php',
-    file_get_contents($mockObjectFilePath)
+    file_get_contents($mockGeneratorFilePath)
+);
+
+file_put_contents(
+    __DIR__ . '/../vendor/phpunit/phpunit-mock-objects/src/Framework/MockObject/Generator/mocked_method.tpl.dist',
+    file_get_contents($mockMethodTemplateFilePath)
 );
 
 require __DIR__.'/../vendor/autoload.php';
