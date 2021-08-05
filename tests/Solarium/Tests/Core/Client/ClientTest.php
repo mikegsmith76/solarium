@@ -119,11 +119,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      * @covers ::getEventDispatcher
      * @covers ::setEventDispatcher
      */
-    public function testGetEventDispatcher() {
-      $this->assertInstanceOf('\Symfony\Component\EventDispatcher\EventDispatcherInterface', $this->client->getEventDispatcher());
+    public function testGetEventDispatcher()
+    {
+        $this->assertInstanceOf('\Symfony\Component\EventDispatcher\EventDispatcherInterface', $this->client->getEventDispatcher());
         $eventDispatcher = $this->getMock('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
-      $this->client->setEventDispatcher($eventDispatcher);
-      $this->assertSame($eventDispatcher, $this->client->getEventDispatcher());
+        $this->client->setEventDispatcher($eventDispatcher);
+        $this->assertSame($eventDispatcher, $this->client->getEventDispatcher());
     }
 
     public function testEventDispatcherInjection()
