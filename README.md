@@ -1,5 +1,9 @@
 # Solarium PHP Solr client library
 
+This repo is cloned from the official solariumphp/solarium repository in order to update the versions of the Symfony packages required for 3.x.
+
+For all other usages please use the official library.
+
 [![Build status](https://secure.travis-ci.org/solariumphp/solarium.png?branch=3.x)](http://travis-ci.org/solariumphp/solarium)
 [![Coverage Status](https://coveralls.io/repos/solariumphp/solarium/badge.png?branch=3.x)](https://coveralls.io/r/solariumphp/solarium?branch=3.x)
 [![Total Downloads](https://poser.pugx.org/solarium/solarium/downloads.svg)](https://packagist.org/packages/solarium/solarium)
