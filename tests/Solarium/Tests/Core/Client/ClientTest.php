@@ -563,7 +563,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
              ->method('getType')
              ->will($this->returnValue('testquerytype'));
 
-        $this->setExpectedException('Solarium\Exception\UnexpectedValueException');
+        $this->setExpectedException('\Solarium\Exception\UnexpectedValueException');
         $this->client->createRequest($queryStub);
     }
 

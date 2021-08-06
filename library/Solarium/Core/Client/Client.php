@@ -700,7 +700,8 @@ class Client extends Configurable implements ClientInterface
     public function createRequest(QueryInterface $query)
     {
         $event = new PreCreateRequestEvent($query);
-        $this->eventDispatcher->dispatch(Events::PRE_CREATE_REQUEST, $event);
+        $this->eventDispatcher->dispatch($event, Events::PRE_CREATE_REQUEST);
+
         if ($event->getRequest() !== null) {
             return $event->getRequest();
         }
@@ -713,8 +714,8 @@ class Client extends Configurable implements ClientInterface
         $request = $requestBuilder->build($query);
 
         $this->eventDispatcher->dispatch(
-            Events::POST_CREATE_REQUEST,
-            new PostCreateRequestEvent($query, $request)
+            new PostCreateRequestEvent($query, $request),
+            Events::POST_CREATE_REQUEST
         );
 
         return $request;
@@ -733,7 +734,7 @@ class Client extends Configurable implements ClientInterface
     public function createResult(QueryInterface $query, $response)
     {
         $event = new PreCreateResultEvent($query, $response);
-        $this->eventDispatcher->dispatch(Events::PRE_CREATE_RESULT, $event);
+        $this->eventDispatcher->dispatch($event, Events::PRE_CREATE_RESULT);
         if ($event->getResult() !== null) {
             return $event->getResult();
         }
@@ -746,8 +747,8 @@ class Client extends Configurable implements ClientInterface
         }
 
         $this->eventDispatcher->dispatch(
-            Events::POST_CREATE_RESULT,
-            new PostCreateResultEvent($query, $response, $result)
+            new PostCreateResultEvent($query, $response, $result),
+            Events::POST_CREATE_RESULT
         );
 
         return $result;
@@ -764,7 +765,7 @@ class Client extends Configurable implements ClientInterface
     public function execute(QueryInterface $query, $endpoint = null)
     {
         $event = new PreExecuteEvent($query);
-        $this->eventDispatcher->dispatch(Events::PRE_EXECUTE, $event);
+        $this->eventDispatcher->dispatch($event, Events::PRE_EXECUTE);
         if ($event->getResult() !== null) {
             return $event->getResult();
         }
@@ -774,8 +775,8 @@ class Client extends Configurable implements ClientInterface
         $result = $this->createResult($query, $response);
 
         $this->eventDispatcher->dispatch(
-            Events::POST_EXECUTE,
-            new PostExecuteEvent($query, $result)
+            new PostExecuteEvent($query, $result),
+            Events::POST_EXECUTE
         );
 
         return $result;
@@ -797,7 +798,7 @@ class Client extends Configurable implements ClientInterface
         }
 
         $event = new PreExecuteRequestEvent($request, $endpoint);
-        $this->eventDispatcher->dispatch(Events::PRE_EXECUTE_REQUEST, $event);
+        $this->eventDispatcher->dispatch($event, Events::PRE_EXECUTE_REQUEST);
         if ($event->getResponse() !== null) {
             $response = $event->getResponse(); //a plugin result overrules the standard execution result
         } else {
@@ -805,8 +806,8 @@ class Client extends Configurable implements ClientInterface
         }
 
         $this->eventDispatcher->dispatch(
-            Events::POST_EXECUTE_REQUEST,
-            new PostExecuteRequestEvent($request, $endpoint, $response)
+            new PostExecuteRequestEvent($request, $endpoint, $response),
+            Events::POST_EXECUTE_REQUEST
         );
 
         return $response;
@@ -1011,7 +1012,7 @@ class Client extends Configurable implements ClientInterface
         $type = strtolower($type);
 
         $event = new PreCreateQueryEvent($type, $options);
-        $this->eventDispatcher->dispatch(Events::PRE_CREATE_QUERY, $event);
+        $this->eventDispatcher->dispatch($event, Events::PRE_CREATE_QUERY);
         if ($event->getQuery() !== null) {
             return $event->getQuery();
         }
@@ -1028,8 +1029,8 @@ class Client extends Configurable implements ClientInterface
         }
 
         $this->eventDispatcher->dispatch(
-            Events::POST_CREATE_QUERY,
-            new PostCreateQueryEvent($type, $options, $query)
+            new PostCreateQueryEvent($type, $options, $query),
+            Events::POST_CREATE_QUERY
         );
 
         return $query;

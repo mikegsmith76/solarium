@@ -154,7 +154,7 @@ class BufferedAdd extends AbstractPlugin
         $this->buffer[] = $document;
 
         $event = new AddDocumentEvent($document);
-        $this->client->getEventDispatcher()->dispatch(Events::ADD_DOCUMENT, $event);
+        $this->client->getEventDispatcher()->dispatch($event, Events::ADD_DOCUMENT);
 
         if (count($this->buffer) == $this->options['buffersize']) {
             $this->flush();
@@ -220,14 +220,14 @@ class BufferedAdd extends AbstractPlugin
         }
 
         $event = new PreFlushEvent($this->buffer, $overwrite, $commitWithin);
-        $this->client->getEventDispatcher()->dispatch(Events::PRE_FLUSH, $event);
+        $this->client->getEventDispatcher()->dispatch($event, Events::PRE_FLUSH);
 
         $this->updateQuery->addDocuments($event->getBuffer(), $event->getOverwrite(), $event->getCommitWithin());
         $result = $this->client->update($this->updateQuery, $this->getEndPoint());
         $this->clear();
 
         $event = new PostFlushEvent($result);
-        $this->client->getEventDispatcher()->dispatch(Events::POST_FLUSH, $event);
+        $this->client->getEventDispatcher()->dispatch($event, Events::POST_FLUSH);
 
         return $result;
     }
@@ -247,7 +247,7 @@ class BufferedAdd extends AbstractPlugin
     public function commit($overwrite = null, $softCommit = null, $waitSearcher = null, $expungeDeletes = null)
     {
         $event = new PreCommitEvent($this->buffer, $overwrite, $softCommit, $waitSearcher, $expungeDeletes);
-        $this->client->getEventDispatcher()->dispatch(Events::PRE_COMMIT, $event);
+        $this->client->getEventDispatcher()->dispatch($event, Events::PRE_COMMIT);
 
         $this->updateQuery->addDocuments($this->buffer, $event->getOverwrite());
         $this->updateQuery->addCommit($event->getSoftCommit(), $event->getWaitSearcher(), $event->getExpungeDeletes());
@@ -255,7 +255,7 @@ class BufferedAdd extends AbstractPlugin
         $this->clear();
 
         $event = new PostCommitEvent($result);
-        $this->client->getEventDispatcher()->dispatch(Events::POST_COMMIT, $event);
+        $this->client->getEventDispatcher()->dispatch($event, Events::POST_COMMIT);
 
         return $result;
     }

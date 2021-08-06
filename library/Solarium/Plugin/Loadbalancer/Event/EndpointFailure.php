@@ -40,7 +40,7 @@
 
 namespace Solarium\Plugin\Loadbalancer\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use Solarium\Core\Client\Endpoint;
 use Solarium\Exception\HttpException;
 

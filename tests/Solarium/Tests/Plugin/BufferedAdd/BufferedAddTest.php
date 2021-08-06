@@ -193,7 +193,7 @@ class BufferedAddTest extends \PHPUnit_Framework_TestCase
         $mockEventDispatcher
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(Events::ADD_DOCUMENT), $this->equalTo($expectedEvent));
+            ->with($this->equalTo($expectedEvent), $this->equalTo(Events::ADD_DOCUMENT));
 
         $mockClient = $this->getMock('Solarium\Core\Client\Client', array('getEventDispatcher'));
         $mockClient->expects($this->once())

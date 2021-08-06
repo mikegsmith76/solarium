@@ -12,14 +12,14 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
-        "symfony/event-dispatcher": "^5.3"
+        "php": ">=7.2",
+        "symfony/event-dispatcher": "^5.0",
+        "symfony/event-dispatcher-contracts": "^2.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.0.*",
         "squizlabs/php_codesniffer": "^1.4",
         "zendframework/zendframework1": "^1.12",
-        "satooshi/php-coveralls": "^1.0",
         "guzzlehttp/guzzle": "^3.8 || ^6.2"
     },
     "suggest": {
